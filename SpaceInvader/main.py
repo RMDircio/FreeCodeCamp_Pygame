@@ -50,7 +50,7 @@ while running:
     
         # Keystrokes
         if event.type == pygame.KEYDOWN: # if any key was pressed
-            print('Non Directional key was pressed')
+            # print('Non Directional key was pressed')
             
             if event.key == pygame.K_LEFT: # if key pressed was left arrow
                 # print('left arrow was pressed')
@@ -83,6 +83,13 @@ while running:
 
     # add player - must be after screen fill
     playerX += playerX_change # location of player dependant on X_change
+
+    # set boundaries for player
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 736: # 64 pixels - 800 pixels = 763
+        playerX = 736
+
     player(playerX, playerY)
     
     # this updates the screen
