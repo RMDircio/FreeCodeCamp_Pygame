@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 
 # Initialize pygame
 pygame.init()
@@ -33,6 +34,20 @@ playerX_change = 0
 def player(x,y):
     # draw (blit) the player on screen
     screen.blit(player_img, (x, y)) # image and coordinates
+
+
+
+# Alien Icon
+# Alien Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+alien_img = pygame.image.load('alien.png')
+# location - make this random
+alienX = random.randint(0, 800) # left=0 right=800
+alienY = random.randint(50, 150) # top=0 bottom=600
+
+
+def alien(x,y):
+    # draw (blit) the alien on screen
+    screen.blit(alien_img, (x, y)) # image and coordinates
 
 
 # game loop
@@ -91,7 +106,7 @@ while running:
         playerX = 736
 
     player(playerX, playerY)
-    
+    alien(alienX, alienY)
     # this updates the screen
     pygame.display.update()
 
