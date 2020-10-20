@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import math
 
 # Initialize pygame
 pygame.init()
@@ -37,6 +38,8 @@ playerY = 500 # top=0 bottom=600
 # player location change
 playerX_change = 0
 
+# set player score
+score = 0
 
 def player(x,y):
     # draw (blit) the player on screen
@@ -72,6 +75,17 @@ def fire_laser(x, y):
     global laser_state # grab the global state
     laser_state = 'fire'
     screen.blit(laserImg, (x + 16, y + 10)) # draw laser with centered above player corridnates
+
+
+# collision - https://www.mathplanet.com/education/algebra-2/conic-sections/distance-between-two-points-and-the-midpoint
+def is_collision(alienX, alienY, laserX, laserY):
+    # use equation
+    distance = math.sqrt((math.pow(laserX - alienX, 2)) + (math.pow(laserY - alienY, 2)))
+    if distance < 27: # if laser hits alien
+        return True
+    else:
+        return False
+
     
 
 # game loop
@@ -102,8 +116,8 @@ while running:
             
             if event.key == pygame.K_SPACE: # if key pressed is SPACE BAR
                 # keep laser from always being in fire position
-                if laser_state is 'ready':
-                    laserX = playerX # reset laser X value
+                if laser_state is 'ready': # is laser on screen already? if not move on
+                    laserX = playerX # reset laser X value to equal player
                     fire_laser(laserX, laserY) # fire laser - keep laser in straight line
 
         
@@ -153,9 +167,18 @@ while running:
     if laserY <=0:
         laserY = 500 # set to equal player
         laser_state = 'ready'
+
     if laser_state is 'fire':
         fire_laser(laserX,laserY)
         laserY-= laserY_change # decrease Y to make laser move up
+
+    # collision checks
+    collision = is_collision(alienX, alienY, laserX, laserY)
+    if collision: # if laser hits
+        laserY = 500 # reset laser
+        laser_state = 'ready'
+        score += 1 # add to score for each hit
+        print(score)
 
     player(playerX, playerY)
     alien(alienX, alienY)
