@@ -50,8 +50,8 @@ alien_img = pygame.image.load('alien.png')
 # location - make this random
 alienX = random.randint(0, 800) # left=0 right=800
 alienY = random.randint(50, 150) # top=0 bottom=600
-alienX_change = 0.3
-alienY_change = 40
+alienX_change = 0.8
+alienY_change = 20
 
 
 def alien(x,y):
@@ -79,11 +79,11 @@ while running:
             
             if event.key == pygame.K_LEFT: # if key pressed was left arrow
                 # print('left arrow was pressed')
-                playerX_change = -0.3 # left movement speed
+                playerX_change = -2.5 # left movement speed
             
             if event.key == pygame.K_RIGHT: # if key pressed was right arrow
                 # print('right arrow was pressed')
-                playerX_change = 0.3 # right movement speed
+                playerX_change = 2.5 # right movement speed
         
         if event.type == pygame.KEYUP: # if any key was released
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -120,10 +120,10 @@ while running:
 
     # set boundaries for alien
     if alienX <= 0:
-        alienX_change = 0.3 # move to the right after hitting left wall
+        alienX_change = 0.8 # move to the right after hitting left wall
         alienY += alienY_change  # move alien down
     elif alienX >= 736: # 64 pixels - 800 pixels = 763
-        alienX_change = -0.3 # move to the left after hitting right wall
+        alienX_change = -0.8 # move to the left after hitting right wall
         alienY += alienY_change # move alien down
 
     player(playerX, playerY)
