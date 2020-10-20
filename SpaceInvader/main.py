@@ -59,6 +59,21 @@ def alien(x,y):
     screen.blit(alien_img, (x, y)) # image and coordinates
 
 
+# laser Icon
+laserImg = pygame.image.load('laser.png')
+laserX = 0
+laserY = 500 # set to equal player
+laserX_change = 0 # laser do not move on the x axis
+laserY_change = 10
+# ready state = not visible  -  Fire state is visible and moving
+laser_state = 'ready'
+
+def fire_laser(x, y):
+    global laser_state # grab the global state
+    laser_state = 'fire'
+    screen.blit(laserImg, (x + 16, y + 10)) # draw laser with centered above player corridnates
+    
+
 # game loop
 running = True
 while running:
@@ -84,6 +99,9 @@ while running:
             if event.key == pygame.K_RIGHT: # if key pressed was right arrow
                 # print('right arrow was pressed')
                 playerX_change = 2.5 # right movement speed
+            
+            if event.key == pygame.K_SPACE: # if key pressed is SPACE BAR
+                fire_laser(playerX, laserY) # fire laser
         
         if event.type == pygame.KEYUP: # if any key was released
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -126,6 +144,11 @@ while running:
         alienX_change = -0.8 # move to the left after hitting right wall
         alienY += alienY_change # move alien down
 
+    # laser movement
+    if laser_state is 'fire':
+        fire_laser(playerX,laserY)
+        laserY-= laserY_change # decrease Y to make laser move up
+
     player(playerX, playerY)
     alien(alienX, alienY)
     # this updates the screen
@@ -142,6 +165,7 @@ while running:
 # https://wallpaperscraft.com/download/hubble_constellations_galaxy_133115/800x600
 
 
-
+# Bullet
+# Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 
