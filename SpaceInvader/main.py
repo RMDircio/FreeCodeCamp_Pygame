@@ -43,6 +43,8 @@ alien_img = pygame.image.load('alien.png')
 # location - make this random
 alienX = random.randint(0, 800) # left=0 right=800
 alienY = random.randint(50, 150) # top=0 bottom=600
+alienX_change = 0.3
+alienY_change = 40
 
 
 def alien(x,y):
@@ -104,6 +106,17 @@ while running:
         playerX = 0
     elif playerX >= 736: # 64 pixels - 800 pixels = 763
         playerX = 736
+
+    # add alien - must be after screen fill
+    alienX += alienX_change # location of alien dependant on X_change
+
+    # set boundaries for alien
+    if alienX <= 0:
+        alienX_change = 0.3 # move to the right after hitting left wall
+        alienY += alienY_change  # move alien down
+    elif alienX >= 736: # 64 pixels - 800 pixels = 763
+        alienX_change = -0.3 # move to the left after hitting right wall
+        alienY += alienY_change # move alien down
 
     player(playerX, playerY)
     alien(alienX, alienY)
