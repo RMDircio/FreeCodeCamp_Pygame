@@ -39,7 +39,16 @@ playerY = 500 # top=0 bottom=600
 playerX_change = 0
 
 # set player score
-score = 0
+score_value = 0
+font = pygame.font.Font('freesansbold.ttf', 32) # (font name, size)
+# set where text should be
+textX = 10
+textY = 10
+
+# free fonts - dafont.com
+def show_score(x,y):
+    score = font.render('Score: ' + str(score_value), True, (255,255,255)) # (text to display, should display, color)
+    screen.blit(score, (x, y))
 
 def player(x,y):
     # draw (blit) the player on screen
@@ -178,8 +187,7 @@ while running:
         if collision: # if laser hits
             laserY = 500 # reset laser
             laser_state = 'ready'
-            score += 1 # add to score for each hit
-            print(score)
+            score_value += 1 # add to score for each hit
             # respawn the alien
             alienX[i] = random.randint(0, 736) # left=0 right=800
             alienY[i] = random.randint(50, 150) # top=0 bottom=600
@@ -198,6 +206,7 @@ while running:
 
 
     player(playerX, playerY)
+    show_score(textX, textY)
    
     # this updates the screen
     pygame.display.update()
