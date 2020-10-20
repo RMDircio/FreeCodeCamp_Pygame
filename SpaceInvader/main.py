@@ -179,6 +179,9 @@ while running:
         laser_state = 'ready'
         score += 1 # add to score for each hit
         print(score)
+        # respawn the alien
+        alienX = random.randint(0, 800) # left=0 right=800
+        alienY = random.randint(50, 150) # top=0 bottom=600
 
     player(playerX, playerY)
     alien(alienX, alienY)
