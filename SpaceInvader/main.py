@@ -49,17 +49,27 @@ def player(x,y):
 
 # Alien Icon
 # Alien Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-alien_img = pygame.image.load('alien.png')
-# location - make this random
-alienX = random.randint(0, 800) # left=0 right=800
-alienY = random.randint(50, 150) # top=0 bottom=600
-alienX_change = 0.8
-alienY_change = 20
+# multiple aliens
+alien_img = []
+alienX = []
+alienY = []
+alienX_change = [] 
+alienY_change = []
+num_of_aliens = 6
+
+for i in range(num_of_aliens):
+    # icon
+    alien_img.append(pygame.image.load('alien.png'))
+    # location - make this random
+    alienX.append(random.randint(0, 735)) # left=0 right=800
+    alienY.append(random.randint(50, 150)) # top=0 bottom=600
+    alienX_change.append(0.8)
+    alienY_change.append(20)
 
 
-def alien(x,y):
+def alien(x,y, i):
     # draw (blit) the alien on screen
-    screen.blit(alien_img, (x, y)) # image and coordinates
+    screen.blit(alien_img[i], (x, y)) # image and coordinates
 
 
 # laser Icon
@@ -152,15 +162,29 @@ while running:
         playerX = 736
 
     # add alien - must be after screen fill
-    alienX += alienX_change # location of alien dependant on X_change
+    for i in range(num_of_aliens):
+        alienX[i] += alienX_change[i] # location of alien dependant on X_change
 
-    # set boundaries for alien
-    if alienX <= 0:
-        alienX_change = 0.8 # move to the right after hitting left wall
-        alienY += alienY_change  # move alien down
-    elif alienX >= 736: # 64 pixels - 800 pixels = 763
-        alienX_change = -0.8 # move to the left after hitting right wall
-        alienY += alienY_change # move alien down
+        # set boundaries for alien
+        if alienX[i] <= 0:
+            alienX_change[i] = 0.8 # move to the right after hitting left wall
+            alienY[i] += alienY_change[i]  # move alien down
+        elif alienX[i] >= 736: # 64 pixels - 800 pixels = 763
+            alienX_change[i] = -0.8 # move to the left after hitting right wall
+            alienY[i] += alienY_change[i] # move alien down
+        
+        # collision checks
+        collision = is_collision(alienX[i], alienY[i], laserX, laserY)
+        if collision: # if laser hits
+            laserY = 500 # reset laser
+            laser_state = 'ready'
+            score += 1 # add to score for each hit
+            print(score)
+            # respawn the alien
+            alienX[i] = random.randint(0, 736) # left=0 right=800
+            alienY[i] = random.randint(50, 150) # top=0 bottom=600
+        
+        alien(alienX[i], alienY[i], i)
 
     # laser movement
     # when laser gets to top of screen
@@ -172,19 +196,9 @@ while running:
         fire_laser(laserX,laserY)
         laserY-= laserY_change # decrease Y to make laser move up
 
-    # collision checks
-    collision = is_collision(alienX, alienY, laserX, laserY)
-    if collision: # if laser hits
-        laserY = 500 # reset laser
-        laser_state = 'ready'
-        score += 1 # add to score for each hit
-        print(score)
-        # respawn the alien
-        alienX = random.randint(0, 800) # left=0 right=800
-        alienY = random.randint(50, 150) # top=0 bottom=600
 
     player(playerX, playerY)
-    alien(alienX, alienY)
+   
     # this updates the screen
     pygame.display.update()
 
