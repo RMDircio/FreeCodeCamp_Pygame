@@ -11,6 +11,13 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # create a window screen for the game
 screen = pygame.display.set_mode((800, 600)) # (width, height)
 
+# background image
+# background = pygame.image.load('space-background-with-ficti.png')
+# background = pygame.image.load('3d-space-background-with-fictional-planets-night-sky.png')
+# background = pygame.image.load('8725.eps')
+background = pygame.image.load('8725.png')
+background = pygame.image.load('hubble_constellations_galaxy_133115_800x600.png')
+
 # title
 pygame.display.set_caption('Space Invaders')
 
@@ -57,6 +64,7 @@ running = True
 while running:
     # background - must be first
     screen.fill((0, 150, 100)) # RGB colors 0-255 (red, green, blue)
+    screen.blit(background, (0,0)) # set the coordinates (top left) of where background picture should sit
 
     
     # EVENTS
@@ -125,13 +133,13 @@ while running:
 
 
 
+# <a href='https://www.freepik.com/photos/background'>Background photo created by kjpargeter - www.freepik.com</a>
+
+# <a href='https://www.freepik.com/vectors/background'>Background vector created by rawpixel.com - www.freepik.com</a>
 
 
 
-
-
-
-
+# https://wallpaperscraft.com/download/hubble_constellations_galaxy_133115/800x600
 
 
 
