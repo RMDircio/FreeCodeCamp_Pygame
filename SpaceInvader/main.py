@@ -64,7 +64,7 @@ laserImg = pygame.image.load('laser.png')
 laserX = 0
 laserY = 500 # set to equal player
 laserX_change = 0 # laser do not move on the x axis
-laserY_change = 10
+laserY_change = 2
 # ready state = not visible  -  Fire state is visible and moving
 laser_state = 'ready'
 
@@ -101,7 +101,11 @@ while running:
                 playerX_change = 2.5 # right movement speed
             
             if event.key == pygame.K_SPACE: # if key pressed is SPACE BAR
-                fire_laser(playerX, laserY) # fire laser
+                # keep laser from always being in fire position
+                if laser_state is 'ready':
+                    laserX = playerX # reset laser X value
+                    fire_laser(laserX, laserY) # fire laser - keep laser in straight line
+
         
         if event.type == pygame.KEYUP: # if any key was released
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -145,8 +149,12 @@ while running:
         alienY += alienY_change # move alien down
 
     # laser movement
+    # when laser gets to top of screen
+    if laserY <=0:
+        laserY = 500 # set to equal player
+        laser_state = 'ready'
     if laser_state is 'fire':
-        fire_laser(playerX,laserY)
+        fire_laser(laserX,laserY)
         laserY-= laserY_change # decrease Y to make laser move up
 
     player(playerX, playerY)
