@@ -2,6 +2,8 @@ import pygame
 import os
 import random
 import math
+from pygame import mixer
+
 
 # Initialize pygame
 pygame.init()
@@ -11,6 +13,10 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 # create a window screen for the game
 screen = pygame.display.set_mode((800, 600)) # (width, height)
+
+# background music
+mixer.music.load('romariogrande__alien-dream.wav')
+mixer.music.play(-1) # -1 means play on loop
 
 # background image
 # background = pygame.image.load('space-background-with-ficti.png')
@@ -136,6 +142,8 @@ while running:
             if event.key == pygame.K_SPACE: # if key pressed is SPACE BAR
                 # keep laser from always being in fire position
                 if laser_state is 'ready': # is laser on screen already? if not move on
+                    laser_sound = mixer.Sound('sunnyflower__laser-gun.wav') # set laser sound
+                    laser_sound.play()
                     laserX = playerX # reset laser X value to equal player
                     fire_laser(laserX, laserY) # fire laser - keep laser in straight line
 
@@ -185,6 +193,8 @@ while running:
         # collision checks
         collision = is_collision(alienX[i], alienY[i], laserX, laserY)
         if collision: # if laser hits
+            boom_sound = mixer.Sound('anomaex__sci-fi-explosion.wav') # set explosion sound
+            boom_sound.play()
             laserY = 500 # reset laser
             laser_state = 'ready'
             score_value += 1 # add to score for each hit
