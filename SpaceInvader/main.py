@@ -25,20 +25,20 @@ screen = pygame.display.set_mode((800, 600)) # (width, height)
 # background = pygame.image.load('3d-space-background-with-fictional-planets-night-sky.png')
 # background = pygame.image.load('8725.eps')
 # background = pygame.image.load('8725.png')
-background = pygame.image.load('SpaceInvader/hubble_constellations_galaxy_133115_800x600.png')
+background = pygame.image.load('hubble_constellations_galaxy_133115_800x600.png')
 
 # title
 pygame.display.set_caption('Space Invaders')
 
 # set icon
 # Icon is from Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-icon = pygame.image.load('SpaceInvader/space-invaders-icon32.png')
+icon = pygame.image.load('space-invaders-icon32.png')
 pygame.display.set_icon(icon)
 
 
 # Player's Ship Icon
 # player spaceship from Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-player_img = pygame.image.load('SpaceInvader/player-space-ship64.png')
+player_img = pygame.image.load('player-space-ship64.png')
 # location - middle and lower half of screen
 playerX = 370 # left=0 right=800
 playerY = 500 # top=0 bottom=600
@@ -76,7 +76,7 @@ num_of_aliens = 6
 
 for i in range(num_of_aliens):
     # icon
-    alien_img.append(pygame.image.load('SpaceInvader/alien.png'))
+    alien_img.append(pygame.image.load('alien.png'))
     # location - make this random
     alienX.append(random.randint(0, 735)) # left=0 right=800
     alienY.append(random.randint(50, 150)) # top=0 bottom=600
@@ -90,7 +90,7 @@ def alien(x,y, i):
 
 
 # laser Icon
-laserImg = pygame.image.load('SpaceInvader/laser.png')
+laserImg = pygame.image.load('laser.png')
 laserX = 0
 laserY = 500 # set to equal player
 laserX_change = 0 # laser do not move on the x axis
